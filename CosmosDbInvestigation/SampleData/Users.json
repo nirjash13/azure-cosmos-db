@@ -1,0 +1,83 @@
+﻿[
+  {
+    "id": "{FC0C57B6-A32A-4E29-8AD6-98133E560DB6}",
+    "typeId": 1002,
+    "typeName": "User",
+    "tenantId": "D905B25A-BAE9-4315-9297-EC7631BF6C82",
+    "metadata": {
+
+    },
+    "tags": [
+
+    ],
+    "payload": {
+      "name": "John Doe",
+      "email":  "johndoe@gmail.com"
+    }
+  },
+  {
+    "id": "{8DF4B8DC-19C6-4908-B278-520B9A1CE7D7}",
+    "typeId": 1002,
+    "typeName": "User",
+    "tenantId": "D905B25A-BAE9-4315-9297-EC7631BF6C82",
+    "metadata": {
+
+    },
+    "tags": [
+
+    ],
+    "payload": {
+      "name": "Jane Doe",
+      "email": "janedoe@gmail.com"
+    }
+  },
+  {
+    "id": "{9A5CE68D-15A3-494A-AF78-C3F67A24E00B}",
+    "typeId": 1002,
+    "typeName": "User",
+    "tenantId": "D905B25A-BAE9-4315-9297-EC7631BF6C82",
+    "metadata": {
+
+    },
+    "tags": [
+
+    ],
+    "payload": {
+      "name": "Luke Skywalker",
+      "email": "lukeskywalker@starwars.com"
+    }
+  },
+  {
+    "id": "{3ED4E070-EEA9-47D6-B7C5-739FF05A88C0}",
+    "typeId": 1002,
+    "typeName": "User",
+    "tenantId": "D905B25A-BAE9-4315-9297-EC7631BF6C82",
+    "metadata": {
+
+    },
+    "tags": [
+
+    ],
+    "payload": {
+      "name": "Hari Seldon",
+      "email": "hariseldon@foundation.com"
+    }
+  },
+  {
+    "id": "{2DC6D769-C7B3-4322-A9DF-91BEF107941A}",
+    "typeId": 1002,
+    "typeName": "User",
+    "tenantId": "D905B25A-BAE9-4315-9297-EC7631BF6C82",
+    "metadata": {
+
+    },
+    "tags": [
+
+    ],
+    "payload": {
+      "name": "Sheldon Cooper",
+      "email": "sheldoncooper@tbbt.com"
+    }
+  }
+]
+

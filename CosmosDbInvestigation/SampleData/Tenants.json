@@ -1,0 +1,78 @@
+﻿[
+  {
+    "id": "{2F1D80C0-F7BF-4D03-A3BB-500B430F800C}",
+    "typeId": 1001,
+    "typeName": "Tenant",
+    "tenantId": "D905B25A-BAE9-4315-9297-EC7631BF6C82",
+    "metadata": {
+
+    },
+    "tags": [
+
+    ],
+    "payload": {
+      "name": "Spaceship Towing"
+    }
+  },
+  {
+    "id": "{F50FA5B2-E087-45A3-932C-B1295A7C993C}",
+    "typeId": 1001,
+    "typeName": "Tenant",
+    "tenantId": "D905B25A-BAE9-4315-9297-EC7631BF6C82",
+    "metadata": {
+
+    },
+    "tags": [
+
+    ],
+    "payload": {
+      "name": "Spaceship Security"
+    }
+  },
+  {
+    "id": "{41EB43E2-95A8-414F-8E64-E1B5CBDC2339}",
+    "typeId": 1001,
+    "typeName": "Tenant",
+    "tenantId": "D905B25A-BAE9-4315-9297-EC7631BF6C82",
+    "metadata": {
+
+    },
+    "tags": [
+
+    ],
+    "payload": {
+      "name": "Load Toad"
+    }
+  },
+  {
+    "id": "{8C911228-9781-4447-B671-14BAB56B8DF4}",
+    "typeId": 1001,
+    "typeName": "Tenant",
+    "tenantId": "D905B25A-BAE9-4315-9297-EC7631BF6C82",
+    "metadata": {
+
+    },
+    "tags": [
+
+    ],
+    "payload": {
+      "name": "Sam Space Tours"
+    }
+  },
+  {
+    "id": "{770B19B5-9077-4F7F-A563-BC01D831F257}",
+    "typeId": 1001,
+    "typeName": "Tenant",
+    "tenantId": "D905B25A-BAE9-4315-9297-EC7631BF6C82",
+    "metadata": {
+
+    },
+    "tags": [
+
+    ],
+    "payload": {
+      "name": "Westworld"
+    }
+  }
+]
+

@@ -4,18 +4,19 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using CosmosDbInvestigation.Structures;
+using DocumentDbInvestigation.Interfaces;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 
 namespace CosmosDbInvestigation.DataAccess
 {
-  public abstract class DocumentManager<TDocument>
+  public class DocumentManager<TDocument> : IRepository<TDocument>
     where TDocument : DocumentBase
   {
 
     #region Fields
 
-    private readonly DocumentClient _client;
+    private readonly DocumentClient client;
     private readonly string DatabaseName;
     private readonly string CollectionName;
     private readonly Uri DocumentCollectionUri;
@@ -24,19 +25,18 @@ namespace CosmosDbInvestigation.DataAccess
 
     #region Properties
 
-    public abstract DocumentType DocumentType { get; }
+    public virtual DocumentType DocumentType { get; }
 
     #endregion
 
     #region Constructor
 
-    public DocumentManager(DocumentClient client, string databaseName, string collectionName)
+    public DocumentManager(
+      DocumentClient client, 
+      string databaseName, 
+      string collectionName)
     {
-      if (client == null)
-      {
-        throw new ArgumentNullException(nameof(client));
-      }
-      _client = client;
+      this.client = client ?? throw new ArgumentNullException(nameof(client));
       DatabaseName = databaseName;
       CollectionName = collectionName;
       DocumentCollectionUri = UriFactory.CreateDocumentCollectionUri(databaseName, collectionName);
@@ -44,7 +44,7 @@ namespace CosmosDbInvestigation.DataAccess
 
     #endregion
 
-    public IQueryable<TDocument> Read(Guid tenantId)
+    public async Task<IQueryable<TDocument>> Read(Guid tenantId)
     {
 
       var sql = $"SELECT * FROM T WHERE T.tenantId = '{tenantId.ToString()}' AND T.typeId = {this.DocumentType.GetHashCode()}";
@@ -55,15 +55,15 @@ namespace CosmosDbInvestigation.DataAccess
         PartitionKey = new PartitionKey(tenantId.ToString())
       };
 
-      return _client.CreateDocumentQuery<TDocument>(DocumentCollectionUri, sql, queryOptions);
+      return client.CreateDocumentQuery<TDocument>(DocumentCollectionUri, sql, queryOptions);
 
     }
 
-    public async void Create(TDocument item)
+    public async Task Create(TDocument item)
     {
       // TODO: changes should all be done through stored procs and subject to security
 
-      var result = await _client.CreateDocumentAsync(DocumentCollectionUri, item);
+      var result = await client.CreateDocumentAsync(DocumentCollectionUri, item);
       // TODO: Log all kinds of info from the result and respond to it
       // TODO: Handle failure much better than this
       if (result.StatusCode != System.Net.HttpStatusCode.Created)
@@ -109,7 +109,7 @@ namespace CosmosDbInvestigation.DataAccess
             group.ToArray()
           };
           stopwatch.Start();
-          var response = await _client.ExecuteStoredProcedureAsync<string>(UriFactory.CreateStoredProcedureUri(DatabaseName, CollectionName, "BulkImport"), ro, args);
+          var response = await client.ExecuteStoredProcedureAsync<string>(UriFactory.CreateStoredProcedureUri(DatabaseName, CollectionName, "BulkImport"), ro, args);
           stopwatch.Stop();
           responses.Add(group.Key.ToString() + " " + group.Count().ToString() + " " + response);
         }
@@ -123,12 +123,12 @@ namespace CosmosDbInvestigation.DataAccess
       
     }
 
-    public async void Update(DocumentBase<TDocument> item)
+    public async Task Update(DocumentBase<TDocument> item)
     {
 
       // TODO: changes should all be done through stored procs and subject to security
 
-      var result = await _client.ReplaceDocumentAsync(DocumentCollectionUri, item);
+      var result = await client.ReplaceDocumentAsync(DocumentCollectionUri, item);
       // TODO: Log all kinds of info from the result and respond to it
       // TODO: Handle failure much better than this
       if (result.StatusCode != System.Net.HttpStatusCode.Created)
@@ -137,19 +137,19 @@ namespace CosmosDbInvestigation.DataAccess
       }
     }
 
-    public void Update(IEnumerable<DocumentBase<TDocument>> items)
+    public async Task Update(IEnumerable<DocumentBase<TDocument>> items)
     {
       // TODO: changes should all be done through stored procs and subject to security
 
       // Group by partition
     }
 
-    public void Upsert(DocumentBase<TDocument> item)
+    public async Task Upsert(DocumentBase<TDocument> item)
     {
       // TODO: changes should all be done through stored procs and subject to security
     }
 
-    public void Upsert(IEnumerable<DocumentBase<TDocument>> items)
+    public async Task Upsert(IEnumerable<DocumentBase<TDocument>> items)
     {
       // TODO: changes should all be done through stored procs and subject to security
 

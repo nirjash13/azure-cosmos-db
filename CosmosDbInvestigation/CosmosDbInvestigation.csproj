@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="DataAccess\AppManager.cs" />
     <Compile Include="DataAccess\DocumentManager.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="DataAccess\UserManager.cs" />
     <Compile Include="DocumentForm.cs">
       <SubType>Form</SubType>

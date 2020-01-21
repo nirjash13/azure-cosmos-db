@@ -41,6 +41,7 @@
       this.createStoredProceduresButton = new System.Windows.Forms.Button();
       this.tabPage2 = new System.Windows.Forms.TabPage();
       this.tabPage3 = new System.Windows.Forms.TabPage();
+      this.refreshTenantGridButton = new System.Windows.Forms.Button();
       this.insertTenantsIntoCosmosButton = new System.Windows.Forms.Button();
       this.tenantGrid = new System.Windows.Forms.DataGridView();
       this.tabPage7 = new System.Windows.Forms.TabPage();
@@ -83,7 +84,7 @@
       this.button1 = new System.Windows.Forms.Button();
       this.statusStrip1 = new System.Windows.Forms.StatusStrip();
       this.generateLabel = new System.Windows.Forms.ToolStripStatusLabel();
-      this.refreshTenantGridButton = new System.Windows.Forms.Button();
+      this.deleteCollectionButton = new System.Windows.Forms.Button();
       this.tabControl1.SuspendLayout();
       this.tabPage1.SuspendLayout();
       this.tabPage2.SuspendLayout();
@@ -187,6 +188,7 @@
       // 
       // tabPage1
       // 
+      this.tabPage1.Controls.Add(this.deleteCollectionButton);
       this.tabPage1.Controls.Add(this.setLazyIndexingButton);
       this.tabPage1.Controls.Add(this.createIndexPayloadTitleButton);
       this.tabPage1.Controls.Add(this.createStoredProceduresButton);
@@ -205,7 +207,7 @@
       this.setLazyIndexingButton.Location = new System.Drawing.Point(10, 151);
       this.setLazyIndexingButton.Name = "setLazyIndexingButton";
       this.setLazyIndexingButton.Size = new System.Drawing.Size(75, 23);
-      this.setLazyIndexingButton.TabIndex = 3;
+      this.setLazyIndexingButton.TabIndex = 2;
       this.setLazyIndexingButton.Text = "Set Lazy Indexing";
       this.setLazyIndexingButton.UseVisualStyleBackColor = true;
       this.setLazyIndexingButton.Click += new System.EventHandler(this.setLazyIndexingButton_Click);
@@ -215,7 +217,7 @@
       this.createIndexPayloadTitleButton.Location = new System.Drawing.Point(10, 99);
       this.createIndexPayloadTitleButton.Name = "createIndexPayloadTitleButton";
       this.createIndexPayloadTitleButton.Size = new System.Drawing.Size(192, 23);
-      this.createIndexPayloadTitleButton.TabIndex = 2;
+      this.createIndexPayloadTitleButton.TabIndex = 1;
       this.createIndexPayloadTitleButton.Text = "Create Index on /payload/Title";
       this.createIndexPayloadTitleButton.UseVisualStyleBackColor = true;
       this.createIndexPayloadTitleButton.Click += new System.EventHandler(this.createIndexPayloadTitleButton_Click);
@@ -225,7 +227,7 @@
       this.createStoredProceduresButton.Location = new System.Drawing.Point(10, 191);
       this.createStoredProceduresButton.Name = "createStoredProceduresButton";
       this.createStoredProceduresButton.Size = new System.Drawing.Size(140, 23);
-      this.createStoredProceduresButton.TabIndex = 1;
+      this.createStoredProceduresButton.TabIndex = 3;
       this.createStoredProceduresButton.Text = "Create Stored Procedures";
       this.createStoredProceduresButton.UseVisualStyleBackColor = true;
       this.createStoredProceduresButton.Click += new System.EventHandler(this.createStoredProceduresButton_Click);
@@ -259,6 +261,17 @@
       this.tabPage3.TabIndex = 2;
       this.tabPage3.Text = "Tenants";
       this.tabPage3.UseVisualStyleBackColor = true;
+      // 
+      // refreshTenantGridButton
+      // 
+      this.refreshTenantGridButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.refreshTenantGridButton.Location = new System.Drawing.Point(363, 371);
+      this.refreshTenantGridButton.Name = "refreshTenantGridButton";
+      this.refreshTenantGridButton.Size = new System.Drawing.Size(94, 23);
+      this.refreshTenantGridButton.TabIndex = 7;
+      this.refreshTenantGridButton.Text = "Refresh Grid";
+      this.refreshTenantGridButton.UseVisualStyleBackColor = true;
+      this.refreshTenantGridButton.Click += new System.EventHandler(this.refreshTenantGridButton_Click);
       // 
       // insertTenantsIntoCosmosButton
       // 
@@ -775,16 +788,15 @@
       this.generateLabel.Name = "generateLabel";
       this.generateLabel.Size = new System.Drawing.Size(0, 17);
       // 
-      // refreshTenantGridButton
+      // deleteCollectionButton
       // 
-      this.refreshTenantGridButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.refreshTenantGridButton.Location = new System.Drawing.Point(363, 371);
-      this.refreshTenantGridButton.Name = "refreshTenantGridButton";
-      this.refreshTenantGridButton.Size = new System.Drawing.Size(94, 23);
-      this.refreshTenantGridButton.TabIndex = 7;
-      this.refreshTenantGridButton.Text = "Refresh Grid";
-      this.refreshTenantGridButton.UseVisualStyleBackColor = true;
-      this.refreshTenantGridButton.Click += new System.EventHandler(this.refreshTenantGridButton_Click);
+      this.deleteCollectionButton.Location = new System.Drawing.Point(11, 233);
+      this.deleteCollectionButton.Name = "deleteCollectionButton";
+      this.deleteCollectionButton.Size = new System.Drawing.Size(139, 23);
+      this.deleteCollectionButton.TabIndex = 5;
+      this.deleteCollectionButton.Text = "Delete Collection";
+      this.deleteCollectionButton.UseVisualStyleBackColor = true;
+      this.deleteCollectionButton.Click += new System.EventHandler(this.deleteCollectionButton_Click);
       // 
       // Form1
       // 
@@ -878,6 +890,7 @@
     private System.Windows.Forms.Button millionRandomButton;
     private System.Windows.Forms.Button setLazyIndexingButton;
     private System.Windows.Forms.Button refreshTenantGridButton;
+    private System.Windows.Forms.Button deleteCollectionButton;
   }
 }
 

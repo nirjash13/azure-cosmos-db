@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
@@ -73,6 +74,9 @@ namespace CosmosDbInvestigation
 
       this.DocumentCollectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName);
 
+      client = new DocumentClient(new Uri(EndpointUrl), PrimaryKey);
+
+
       tenantGrid.DataSource = tenantList;
       userGrid.DataSource = userList;
 
@@ -98,7 +102,7 @@ namespace CosmosDbInvestigation
       readAppPermissionTypeComboBox.DataSource = Enum.GetValues(typeof(PermissionType));
       readAppPermissionComboBox.DataSource = Enum.GetValues(typeof(Structures.Permission));
 
-    } 
+    }
 
     #endregion
 
@@ -111,7 +115,6 @@ namespace CosmosDbInvestigation
           throw new ArgumentNullException("EndpointUrl name or PrimaryKey name can not be null");
         }
 
-        client = new DocumentClient(new Uri(EndpointUrl), PrimaryKey);
         await client.OpenAsync();
 
         var database = new Database
@@ -125,17 +128,16 @@ namespace CosmosDbInvestigation
         {
           var databaseCollection = new DocumentCollection
           {
-            Id = this.CollectionName
-          };
-
-          var requestOptions = new RequestOptions()
-          {
-            PartitionKey = new PartitionKey("tenantId")
+            Id = this.CollectionName,
+            PartitionKey = new PartitionKeyDefinition
+            {
+              Paths = new Collection<string> { "/tenantId" }
+            }
           };
 
           var collectionResponse = await client.CreateDocumentCollectionIfNotExistsAsync(
               UriFactory.CreateDatabaseUri(DatabaseName),
-              new DocumentCollection { Id = CollectionName });
+              databaseCollection);
 
           if (collectionResponse.StatusCode == HttpStatusCode.InternalServerError)
           {
@@ -193,7 +195,7 @@ namespace CosmosDbInvestigation
       {
         var doc = JsonConvert.DeserializeObject<AppDocument>(serializeTextBox.Text);
         serializeTextBox.Text = doc.ToString(Formatting.Indented);
-        MessageBox.Show(doc.Id.ToString());
+        MessageBox.Show("Id: " + doc.Id);
       }
       catch (Exception ex)
       {
@@ -201,7 +203,7 @@ namespace CosmosDbInvestigation
       }
     }
 
-    
+
     private async void clearAppGridButton_Click(object sender, EventArgs e)
     {
       appList.Clear();
@@ -244,7 +246,7 @@ namespace CosmosDbInvestigation
       return string.Concat(appTitles[random.Next(0, appTitles.Length - 1)], " ", random.Next(1, 1000).ToString("0000"));
     }
 
-    
+
     private async void insertAppsSerialButton_Click(object sender, EventArgs e)
     {
       try
@@ -797,5 +799,33 @@ namespace CosmosDbInvestigation
     }
 
     #endregion
+
+    private async void deleteCollectionButton_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        if (string.IsNullOrWhiteSpace(EndpointUrl) || string.IsNullOrWhiteSpace(PrimaryKey))
+        {
+          throw new ArgumentNullException("EndpointUrl name or PrimaryKey name can not be null");
+        }
+
+        await client.OpenAsync();
+
+        var documentCollectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName);
+
+        var collectionResponse = await client.DeleteDocumentCollectionAsync(documentCollectionUri);
+
+        if (collectionResponse.StatusCode == HttpStatusCode.InternalServerError)
+        {
+          throw new InvalidOperationException(collectionResponse.ToString());
+        }
+
+        MessageBox.Show("Collection deleted successfully");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.ToString());
+      }
+    }
   }
 }

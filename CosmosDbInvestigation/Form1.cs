@@ -56,6 +56,8 @@ namespace CosmosDbInvestigation
 
     #endregion
 
+    #region constructor
+
     public Form1()
     {
       InitializeComponent();
@@ -96,7 +98,9 @@ namespace CosmosDbInvestigation
       readAppPermissionTypeComboBox.DataSource = Enum.GetValues(typeof(PermissionType));
       readAppPermissionComboBox.DataSource = Enum.GetValues(typeof(Structures.Permission));
 
-    }
+    } 
+
+    #endregion
 
     private async void startButton_Click(object sender, EventArgs e)
     {
@@ -150,7 +154,7 @@ namespace CosmosDbInvestigation
       }
     }
 
-    private void serializeButton_Click(object sender, EventArgs e)
+    private async void serializeButton_Click(object sender, EventArgs e)
     {
       try
       {
@@ -183,7 +187,7 @@ namespace CosmosDbInvestigation
       }
     }
 
-    private void deserializeButton_Click(object sender, EventArgs e)
+    private async void deserializeButton_Click(object sender, EventArgs e)
     {
       try
       {
@@ -198,12 +202,12 @@ namespace CosmosDbInvestigation
     }
 
     
-    private void clearAppGridButton_Click(object sender, EventArgs e)
+    private async void clearAppGridButton_Click(object sender, EventArgs e)
     {
       appList.Clear();
     }
 
-    private void generateAppsButton_Click(object sender, EventArgs e)
+    private async void generateAppsButton_Click(object sender, EventArgs e)
     {
 
       try
@@ -270,17 +274,17 @@ namespace CosmosDbInvestigation
       }
     }
 
-    private void readAppsLimitCheckBox_CheckedChanged(object sender, EventArgs e)
+    private async void readAppsLimitCheckBox_CheckedChanged(object sender, EventArgs e)
     {
       readAppsLimitSpinEdit.Enabled = readAppsLimitCheckBox.Checked;
     }
 
-    private void readAppsTenantCheckBox_CheckedChanged(object sender, EventArgs e)
+    private async void readAppsTenantCheckBox_CheckedChanged(object sender, EventArgs e)
     {
       readAppsTenantComboBox.Enabled = readAppsTenantCheckBox.Checked;
     }
 
-    private void readAppsFromCosmosButton_Click(object sender, EventArgs e)
+    private async void readAppsFromCosmosButton_Click(object sender, EventArgs e)
     {
       try
       {
@@ -411,7 +415,7 @@ namespace CosmosDbInvestigation
       }
     }
 
-    private void readAppsGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+    private async void readAppsGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
     {
       var document = readAppsGrid.Rows[e.RowIndex].DataBoundItem;
       new DocumentForm(document).Show();
@@ -511,7 +515,7 @@ namespace CosmosDbInvestigation
 
     }
 
-    private void readAppsCountFromCosmosButton_Click(object sender, EventArgs e)
+    private async void readAppsCountFromCosmosButton_Click(object sender, EventArgs e)
     {
       try
       {
@@ -547,7 +551,7 @@ namespace CosmosDbInvestigation
       }
     }
 
-    private void loadUsersFromFileButton_Click(object sender, EventArgs e)
+    private async void loadUsersFromFileButton_Click(object sender, EventArgs e)
     {
       try
       {
@@ -567,12 +571,12 @@ namespace CosmosDbInvestigation
       }
     }
 
-    private void loadUsersFromCosmosButton_Click(object sender, EventArgs e)
+    private async void loadUsersFromCosmosButton_Click(object sender, EventArgs e)
     {
       try
       {
 
-        var query = userRepository.Read(Globals.SecurityAssetsTenantId);
+        var query = await userRepository.Read(Globals.SecurityAssetsTenantId);
 
         userList.Clear();
 
@@ -609,7 +613,7 @@ namespace CosmosDbInvestigation
       }
     }
 
-    private void readAppsUserCheckBox_CheckedChanged(object sender, EventArgs e)
+    private async void readAppsUserCheckBox_CheckedChanged(object sender, EventArgs e)
     {
       readAppUserComboBox.Enabled = readAppsUserCheckBox.Checked;
       readAppPermissionTypeComboBox.Enabled = readAppsUserCheckBox.Checked;
@@ -716,7 +720,7 @@ namespace CosmosDbInvestigation
     {
       tenantList.Clear();
     }
-    private void loadTenantsFromFile_Click(object sender, EventArgs e)
+    private async void loadTenantsFromFile_Click(object sender, EventArgs e)
     {
       try
       {
@@ -738,7 +742,7 @@ namespace CosmosDbInvestigation
       }
     }
 
-    private void loadTenantsFromCosmos_Click(object sender, EventArgs e)
+    private async void loadTenantsFromCosmos_Click(object sender, EventArgs e)
     {
       try
       {
